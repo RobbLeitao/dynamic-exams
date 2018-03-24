@@ -9,6 +9,9 @@
     "jade": "~0.31.2",
     "method-override": "^1.0.0",
     "morgan": "^1.0.0",
-    "mysql": "^2.15.0"
+    "mysql": "^2.15.0",
+    "sequelize": "^2.0.0-rc1",
+    "sequelize-cli": "^4.0.0",
+    "sqlite3": "^4.0.0"
   }
 }
