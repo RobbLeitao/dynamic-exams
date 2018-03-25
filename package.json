@@ -1,5 +1,8 @@
 {
   "name": "application-name",
+  "scripts": {
+    "migrate": "node migrations.js"
+  },
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -9,6 +12,8 @@
     "express-error-handler": "^1.1.0",
     "jade": "~0.31.2",
     "method-override": "^1.0.0",
+    "migrate": "^1.3.0",
+    "migrations": "^0.1.7",
     "morgan": "^1.0.0",
     "mysql": "^2.15.0",
     "sequelize": "^2.0.0-rc1",
