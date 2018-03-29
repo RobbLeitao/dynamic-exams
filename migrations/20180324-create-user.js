@@ -1,27 +1,28 @@
 'use strict';
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Users', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      username: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+  up: function(migration, DataTypes, done) {
+    migration.createTable(
+        'Users',
+        {
+          id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+          },
+          username: {
+            type: DataTypes.TEXT, 
+            allowNull: false},
+          createdAt: {
+            type: DataTypes.DATE
+          },
+          updatedAt: {
+            type: DataTypes.DATE
+          }
+        });
+    done();
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Users');
-  }
-};
+  down: function(migration, DataTypes, done) {
+    migration.dropTable('Users');
+    done();
+  }};
