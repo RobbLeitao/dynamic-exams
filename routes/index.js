@@ -1,13 +1,14 @@
+var express = require('express');
+var router = express.Router();
 
-/*
- * GET home page.
- */
+/* GET home page. */
+router.get('/', function(req, res) {
+  res.render('index', { title: 'Express', framework: 'AngularJS'});
+});
 
-exports.index = function(req, res){
-  res.render('index');
-};
+router.post('/login', function(req, res) 
+{
+	res.send(req.body);
+})
 
-exports.partials = function (req, res) {
-  var name = req.params.name;
-  res.render('partials/' + name);
-};
+module.exports = router;
