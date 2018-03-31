@@ -6,8 +6,7 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Express', framework: 'AngularJS'});
 });
 
-router.post('/login', function(req, res) 
-{
+router.post('/login', function(req, res) {
 	res.send(req.body);
 })
 

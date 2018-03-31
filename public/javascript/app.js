@@ -24,12 +24,15 @@ app.controller('homeCtrl', ['$scope', function($scope)
 
 app.controller('loginCtrl', ['$scope', 'loginService', function($scope, loginService)
 {
-	$scope.saludo = "Hola desde login";	
 	$scope.login = function(user)
 	{
-		loginService.login('email='+user.email+'&password='+user.password).then(function(result)
-        {
-            alert(JSON.stringify(result));
+		loginService.login($scope.user, function(response) {
+            if(response.success) {
+                Auth.SetCredentials($scope.user.username, $scope.user.password);
+                $location.path('/');
+            } else {
+                $scope.error = response.message;
+            }
         });
 	}
 }]);
@@ -41,14 +44,15 @@ app.controller('profileCtrl', ['$scope', function($scope)
 
 app.service('loginService', ['$http', function($http)
 {
-    var obj = {};
-    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-    obj.login = function(user)
-    {
-        return $http.post('/login', user).then(function(results) 
-        {
-            return results;
-        });
-    }  
-    return obj;
+    var service = {};
+ 
+    service.login = function (user, callback) {
+        debugger;
+        $http.post('/api/authenticate', user)
+                .success(function (response) {
+                callback(response);
+            });
+
+    };
+    return service;
 }]);

@@ -8,8 +8,20 @@ var http = require('http');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
 
+var passport   = require('passport')
+var session    = require('express-session')
+var bodyParser = require('body-parser')
+
 var app = express();
 
+var authenticateController = require('./controllers/authenticate-controller');
+
+app.post('/api/authenticate', authenticateController.authenticate);
+
+
+var registerController = require('./controllers/register-controller');
+
+app.post('/api/register', registerController.register);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine("html", require("ejs").renderFile);
