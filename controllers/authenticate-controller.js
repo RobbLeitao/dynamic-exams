@@ -2,10 +2,10 @@ var connection = require('../config/config.json');
 
 module.exports.authenticate = function(req,res){
     debugger;
-    var email = "aahh";
-    var password = req.body.password;
+    var username = req.username;
+    var password = "fdhjsdfk";
     
-    connection.query('SELECT * FROM users WHERE email = ?',[email], function (error, results, fields) {
+    connection.query('SELECT * FROM users WHERE username = ?',[username], function (error, results, fields) {
       if (error) {
           res.json({
             status:false,
@@ -13,7 +13,7 @@ module.exports.authenticate = function(req,res){
             })
       }else{
         if(results.length >0){
-            if(password==results[0].password){
+            if(password == results[0].password){
                 res.json({
                     status:true,
                     message:'successfully authenticated'
@@ -21,7 +21,7 @@ module.exports.authenticate = function(req,res){
             }else{
                 res.json({
                   status:false,
-                  message:"Email and password does not match"
+                  message:"Username and password does not match"
                  });
             }
          
@@ -29,7 +29,7 @@ module.exports.authenticate = function(req,res){
         else{
           res.json({
               status:false,    
-            message:"Email does not exits"
+            message:"Username does not exits"
           });
         }
       }

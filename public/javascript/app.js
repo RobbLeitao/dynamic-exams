@@ -14,7 +14,7 @@ app.config(function($routeProvider)
     	templateUrl: "templates/profile.html",
     	controller: "profileCtrl"
     })
-    .otherwise({ redirectTo : "/" });
+    .otherwise({ redirectTo : "/login" });
 })
 
 app.controller('homeCtrl', ['$scope', function($scope)
@@ -28,8 +28,7 @@ app.controller('loginCtrl', ['$scope', 'loginService', function($scope, loginSer
 	{
 		loginService.login($scope.user, function(response) {
             if(response.success) {
-                Auth.SetCredentials($scope.user.username, $scope.user.password);
-                $location.path('/');
+                console.log("Hola");
             } else {
                 $scope.error = response.message;
             }
@@ -47,12 +46,19 @@ app.service('loginService', ['$http', function($http)
     var service = {};
  
     service.login = function (user, callback) {
-        debugger;
-        $http.post('/api/authenticate', user)
-                .success(function (response) {
-                callback(response);
-            });
-
+        $http.post('/api/authenticate', user);
     };
+
+    service.SetCredentials = function (username, password) {
+        var authdata = Base64.encode(username + ':' + password);
+        debugger;
+        $rootScope.globals = {
+            currentUser: {
+                username: username,
+                authdata: authdata
+            }
+        }
+    };
+
     return service;
 }]);

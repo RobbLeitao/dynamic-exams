@@ -1,23 +1,46 @@
 var express = require('express');
 var path = require('path');
 //var favicon = require('static-favicon');
+var User = require("./models/user").User;
 var logger = require('morgan');
+var cookieSession = require("cookie-session");
+var session_middleware = require("./middlewares/session");
 //var cookieParser = require('cookie-parser');
 //var bodyParser = require('body-parser');
 var http = require('http');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
-
-var passport   = require('passport')
-var session    = require('express-session')
-var bodyParser = require('body-parser')
+var User = require("./models/user").User;
+var passport   = require('passport');
+var session    = require('express-session');
+var bodyParser = require('body-parser');
 
 var app = express();
 
-var authenticateController = require('./controllers/authenticate-controller');
+app.use(cookieSession({
+	name: "session",
+	keys: ["llave-1", "llave-2"]
+}));
 
-app.post('/api/authenticate', authenticateController.authenticate);
+app.get('/logout',function(req, res){
+    req.session = null;
+    res.redirect('/');
+  });
 
+//var authenticateController = require('./controllers/authenticate-controller');
+
+app.post('/api/authenticate', function(req, res){
+	var user = User.findOne({
+        where: {username: req.body.username, password: req.body.password}});
+        
+		if(user){
+			req.session.user_id = user._id;
+			res.redirect('/');
+		} else {
+			res.render('/login', {error: 'Usuario no encontrado, por favor intentelo nuevamente.'});
+			console.log("Usuario no encontrado, por favor intentelo nuevamente.");
+		}
+	});
 
 var registerController = require('./controllers/register-controller');
 

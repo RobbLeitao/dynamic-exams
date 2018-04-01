@@ -12,7 +12,6 @@ angular.module('Auth')
             AuthService.Login($scope.user, function(response) {
                 if(response.success) {
                     Auth.SetCredentials($scope.username, $scope.password);
-                    $location.path('/');
                 } else {
                     $scope.error = response.message;
                 }
