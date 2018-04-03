@@ -1,26 +1,26 @@
 var express = require('express');
 var path = require('path');
+var sequelize = require('sequelize');
 //var favicon = require('static-favicon');
-var User = require("./models/user").User;
+var User = require("./models/user");
 var logger = require('morgan');
-var cookieSession = require("cookie-session");
+//var cookieSession = require("cookie-session");
 var session_middleware = require("./middlewares/session");
 //var cookieParser = require('cookie-parser');
 //var bodyParser = require('body-parser');
 var http = require('http');
 var routes = require('./routes/index');
 //var users = require('./routes/users');
-var User = require("./models/user").User;
 var passport   = require('passport');
 var session    = require('express-session');
 var bodyParser = require('body-parser');
 
 var app = express();
 
-app.use(cookieSession({
-	name: "session",
-	keys: ["llave-1", "llave-2"]
-}));
+// app.use(cookieSession({
+// 	name: "session",
+// 	keys: ["llave-1", "llave-2"]
+// }));
 
 app.get('/logout',function(req, res){
     req.session = null;
@@ -32,7 +32,7 @@ app.get('/logout',function(req, res){
 app.post('/api/authenticate', function(req, res){
 	var user = User.findOne({
         where: {username: req.body.username, password: req.body.password}});
-        
+        //HACE LA MIGRATION PARA USERNAME ROBERTO
 		if(user){
 			req.session.user_id = user._id;
 			res.redirect('/');
