@@ -1,12 +1,14 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
+
+var Sequelize = require('sequelize');
+var sequelize = require('../db/models/index').sequelize;
+
+module.exports = (req) => {
   var User = sequelize.define('User', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    bio: DataTypes.TEXT,
-    password: DataTypes.STRING,
+    username: Sequelize.STRING,
+    password: Sequelize.STRING,
     email: {
-      type: DataTypes.STRING,
+      type: Sequelize.STRING,
       validate: {
         isEmail: true
       }

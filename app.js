@@ -1,8 +1,9 @@
 var express = require('express');
 var path = require('path');
 var sequelize = require('sequelize');
+var DataTypes = sequelize.DataTypes;
 //var favicon = require('static-favicon');
-var User = require("./models/user");
+var User = require("./models/user")(sequelize, DataTypes);
 var logger = require('morgan');
 //var cookieSession = require("cookie-session");
 var session_middleware = require("./middlewares/session");
@@ -22,24 +23,43 @@ var app = express();
 // 	keys: ["llave-1", "llave-2"]
 // }));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.get('/logout',function(req, res){
     req.session = null;
     res.redirect('/');
   });
 
+  var db = require('./db/models/index'),
+    sequelize = db.sequelize,
+    Sequelize = db.Sequelize;
+
 //var authenticateController = require('./controllers/authenticate-controller');
 
 app.post('/api/authenticate', function(req, res){
-	var user = User.findOne({
-        where: {username: req.body.username, password: req.body.password}});
-        //HACE LA MIGRATION PARA USERNAME ROBERTO
-		if(user){
-			req.session.user_id = user._id;
-			res.redirect('/');
-		} else {
-			res.render('/login', {error: 'Usuario no encontrado, por favor intentelo nuevamente.'});
-			console.log("Usuario no encontrado, por favor intentelo nuevamente.");
-		}
+   var user = {};
+    User.findOne({
+        where: {username: req.body.username}}).then(
+            function(user2)  {
+                user = user2.dataValues;
+                if(user.password == req.body.password){
+                    console.log(user);
+                    return {
+                        "User" : {
+                            "UserName" : user.username,
+                            "Mail" : user.email
+                        },
+                        "Status" : 200
+                    }
+                } else {
+                    return {
+                        "Status" : 404
+                    }
+                }
+        });
+
+        
 	});
 
 var registerController = require('./controllers/register-controller');
@@ -52,8 +72,7 @@ app.set('view engine', 'html');
 app.set('port', process.env.PORT || 3000);
 //app.use(favicon());
 app.use(logger('dev'));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded());
+
 //app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
