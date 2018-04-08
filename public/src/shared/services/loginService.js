@@ -10,7 +10,7 @@ angular.module("app")
 
                 $http.post('/api/authenticate', user)
                     .then(function(res){
-                        deferred.resolve(res.data.result);
+                        deferred.resolve(res);
                     }, function(error) {
                         deferred.reject(error);
                     });

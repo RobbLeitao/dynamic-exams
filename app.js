@@ -37,30 +37,30 @@ app.get('/logout',function(req, res){
 
 //var authenticateController = require('./controllers/authenticate-controller');
 
-app.post('/api/authenticate', function(req, res){
-   var user = {};
-    User.findOne({
-        where: {username: req.body.username}}).then(
-            function(user2)  {
-                user = user2.dataValues;
-                if(user.password == req.body.password){
-                    console.log(user);
-                    return {
-                        "User" : {
-                            "UserName" : user.username,
-                            "Mail" : user.email
-                        },
-                        "Status" : 200
-                    }
-                } else {
-                    return {
-                        "Status" : 404
-                    }
-                }
-        });
+function GetUser(userName){
+    return User.findOne({
+        where: {username: userName}
+    });
+}
 
-        
-	});
+app.post('/api/authenticate', function(req, res){
+    
+    GetUser(req.body.username).then(
+            function(data)  {
+                var user = data.dataValues;
+                if(user.password == req.body.password){
+                    profile = {
+                        "UserName" : user.username,
+                        "Mail" : user.email
+                    }
+                    res.status(200).send(profile);
+                }
+                else{
+                    res.status(404).send("El usuario no se encontro");
+                }
+
+    });
+});
 
 var registerController = require('./controllers/register-controller');
 

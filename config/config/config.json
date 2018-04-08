@@ -5,7 +5,8 @@
     "database": "dynamicexams",
     "host": "127.0.0.1",
     "url": "mysql://root:root@localhost:/dynamicexams",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "logging" : false
   },
   "test": {
     "username": "root",
