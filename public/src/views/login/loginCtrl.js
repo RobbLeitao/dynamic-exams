@@ -1,15 +1,18 @@
 angular.module("app")
     .controller('loginCtrl', [
         'loginService', 
-        function(loginService) {
+        '$window',
+        function(loginService, $window) {
             var vm = this;
 
             vm.login = function(user) {
                 loginService.login(user).then(function(response) {
-                    console.log("Hola: ", response);
+                    console.log("Hola: ", response.data);
                     if(response.status === 200){
-                        console.log("estamos bien, hay q ir a home y cargar la session")
-                        //Aca!
+                        sessionStorage.setItem('UserName', response.data.UserName);
+                        sessionStorage.setItem('Mail', response.data.Mail);
+
+                        $window.location.href = '/';
                     }
                 }, function (error) {
                     console.error('Code: ', error.status, ' - Message: ', error.statusText);
