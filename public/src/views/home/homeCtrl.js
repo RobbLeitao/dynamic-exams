@@ -1,7 +1,13 @@
 angular.module("app")
     .controller('homeCtrl', [
-        function () {
+        '$window',
+        function ($window) {
             var vm = this;
             vm.saludo = sessionStorage.UserName;
+
+            vm.logout = function(){
+                sessionStorage.clear();
+                $window.location.href = '#!/login';
+            }
         }
     ]);
