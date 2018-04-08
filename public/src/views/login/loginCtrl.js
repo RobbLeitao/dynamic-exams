@@ -14,6 +14,9 @@ angular.module("app")
 
                         $window.location.href = '/';
                     }
+                    else if(response.status === 404){
+                        console.log('ERRO');
+                    }
                 }, function (error) {
                     console.error('Code: ', error.status, ' - Message: ', error.statusText);
                 });

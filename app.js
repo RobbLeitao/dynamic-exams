@@ -47,6 +47,7 @@ app.post('/api/authenticate', function(req, res){
     
     GetUser(req.body.username).then(
             function(data)  {
+                // TO DO: Correr esto!
                 var user = data.dataValues;
                 if(user.password == req.body.password){
                     profile = {
