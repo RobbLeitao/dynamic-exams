@@ -9,15 +9,16 @@
 					<div class="col-xs-8 text-right menu-1">
 						<ul>
 							<li class="active"><a href="features.html">HOME</a></li>
-							<li class="has-dropdown">
+							<li class="has-dropdown" ng-if="ctrl.isAdmin" ng-mouseover="ctrl.toggleAction(true)" ng-mouseleave="ctrl.toggleAction(false)">
 								<a href="#">Acciones</a>
-								<ul class="dropdown">
+								<ul class="dropdown" ng-class="{'animated-fast':ctrl.actionsDropped, fadeInUpMenu: ctrl.actionsDropped}">
 									<li><a href="#">Nueva Materia</a></li>
 									<li><a href="#">Nueva Pregunta</a></li>
 									<li><a href="#">Nueva Comision</a></li>
 								</ul>
 							</li>
-							<li><a href="contact.html">Contacto</a></li>
+							<li><a href="#">Nuevo Examen</a></li>
+							<li><a href="#">Contacto</a></li>
 							<li class="btn-cta"><a href="" ng-click="ctrl.logout()"><span>Logout</span></a></li>
 						</ul>
 					</div>
