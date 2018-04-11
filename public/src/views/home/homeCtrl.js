@@ -10,9 +10,7 @@ angular.module("app")
                 vm.actionsDropped = dropped;
             }
 
-            vm.isAdmin = true; //true lo muestra -> false no lo muestra
-            //Esto lo saco de algun lado
-
+            vm.isAdmin = sessionStorage.IsAdmin == 'false' ? false : true;
 
             vm.logout = function(){
                 sessionStorage.clear();

@@ -7,10 +7,11 @@ angular.module("app")
 
             vm.login = function(user) {
                 loginService.login(user).then(function(response) {
-                    console.log("Hola: ", response.data);
+
                     if(response.status === 200){
                         sessionStorage.setItem('UserName', response.data.UserName);
                         sessionStorage.setItem('Mail', response.data.Mail);
+                        sessionStorage.setItem('IsAdmin', response.data.IsAdmin);
 
                         $window.location.href = '/';
                     }

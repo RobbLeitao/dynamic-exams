@@ -52,6 +52,7 @@ app.post('/api/authenticate', function(req, res){
                 if(user.password == req.body.password){
                     profile = {
                         "UserName" : user.username,
+                        "IsAdmin" : user.isAdmin,
                         "Mail" : user.email
                     }
                     res.status(200).send(profile);

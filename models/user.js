@@ -7,6 +7,7 @@ module.exports = (req) => {
   var User = sequelize.define('User', {
     username: Sequelize.STRING,
     password: Sequelize.STRING,
+    isAdmin: Sequelize.BOOLEAN,
     email: {
       type: Sequelize.STRING,
       validate: {
