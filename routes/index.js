@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express', framework: 'AngularJS'});
+  res.render('index', { title: 'DYNAMIC EXAMS', framework: 'AngularJS'});
 });
 
 router.post('/login', function(req, res) {
