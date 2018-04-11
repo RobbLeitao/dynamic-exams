@@ -6,6 +6,7 @@ angular.module("app")
             var vm = this;
 
             vm.login = function(user) {
+                console.log('user: ', user)
                 loginService.login(user).then(function(response) {
                     if(response.status === 200){
                         sessionStorage.setItem('UserName', response.data.UserName);
@@ -20,7 +21,7 @@ angular.module("app")
                 }, function (error) {
                     console.log('ERROR: ', error);
                     console.error('Code: ', error.status, ' - Message: ', error.data);
-                    vm.error = error.data
+                    vm.error = user == undefined ? 'Complete los campos' : error.data
                 });
             };
         }
