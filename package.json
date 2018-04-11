@@ -8,6 +8,8 @@
   "private": true,
   "dependencies": {
     "angular": "^1.6.9",
+    "angular-cookies": "1.4.0",
+    "angular-resource": "1.4.0",
     "angular-route": "^1.6.9",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
