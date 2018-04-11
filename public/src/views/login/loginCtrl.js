@@ -7,7 +7,6 @@ angular.module("app")
 
             vm.login = function(user) {
                 loginService.login(user).then(function(response) {
-
                     if(response.status === 200){
                         sessionStorage.setItem('UserName', response.data.UserName);
                         sessionStorage.setItem('Mail', response.data.Mail);
@@ -19,7 +18,9 @@ angular.module("app")
                         console.log('ERRO');
                     }
                 }, function (error) {
-                    console.error('Code: ', error.status, ' - Message: ', error.statusText);
+                    console.log('ERROR: ', error);
+                    console.error('Code: ', error.status, ' - Message: ', error.data);
+                    vm.error = error.data
                 });
             };
         }

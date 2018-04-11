@@ -47,10 +47,11 @@ app.post('/api/authenticate', function(req, res){
     
     GetUser(req.body.username).then(
             function(data)  {
-                // TO DO: Correr esto!
+                console.log('DATA: ', data)
+                if(data && data.dataValues.password == req.body.password){
                 var user = data.dataValues;
-                if(user.password == req.body.password){
-                    profile = {
+
+                profile = {
                         "UserName" : user.username,
                         "IsAdmin" : user.isAdmin,
                         "Mail" : user.email
@@ -58,7 +59,7 @@ app.post('/api/authenticate', function(req, res){
                     res.status(200).send(profile);
                 }
                 else{
-                    res.status(404).send("El usuario no se encontro");
+                    res.status(404).send("El usuario o la password son incorrectas.");
                 }
 
     });
